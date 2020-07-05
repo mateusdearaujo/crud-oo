@@ -45,8 +45,38 @@ class Contato {
 		}
 	}
 
-	public function existeEmail() {
+	public function existeEmail($email) {
+		$sql = "SELECT * FROM contatos WHERE email = :email";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindValue(":email", $email);
+		$sql->execute();
 
+		if($sql->rowCount() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function editar($nome, $email) {
+		if($this->existeEmail($email)) {
+			$sql = "UPDATE contatos SET nome = :nome WHERE email = :email";
+			$sql = $this->pdo->prepare($sql);
+			$sql->bindValue(":nome", $nome);
+			$sql->bindValue(":email", $email);
+			$sql->execute();
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function excluir($id) {
+		$sql = "DELETE FROM contatos WHERE id = :id";
+		$sql = $this->pdo->prepare($sql);
+		$sql->bindValue(":id", $id);
+		$sql->execute();
 	}
 }
 ?>
