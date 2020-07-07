@@ -5,9 +5,6 @@ $contato = new Contato();
 
 $usuarios = $contato->getAll();
 
-foreach($usuarios as $usuario) {
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -28,6 +25,7 @@ foreach($usuarios as $usuario) {
 		</tr>
 	</thead>
 	<tbody>
+		<?php foreach($usuarios as $usuario): ?>
 		<tr>
 			<td><?php echo $usuario['id']; ?></td>
 			<td><?php echo $usuario['nome']; ?></td>
@@ -37,6 +35,7 @@ foreach($usuarios as $usuario) {
 				<a href="excluir.php?id=<?php echo $usuario['id']; ?>"><img style="margin-left:10px;" src="assets/images/excluir.svg" width="20" height="20"></a>
 			</td>
 		</tr>
+		<?php endforeach; ?>
 	</tbody>
 </table>
 <a href="adicionar.php">Adicionar</a>
